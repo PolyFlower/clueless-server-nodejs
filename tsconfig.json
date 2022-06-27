@@ -4,7 +4,8 @@
     "paths": {
       "@common/*": ["./common/*"],
       "@routes/*": ["./routes/*"],
-      "@utils/*": ["./utils/*"]
+      "@utils/*": ["./utils/*"],
+      "@middlewares/*": ["./middlewares/*"]
     }
   }
 }
