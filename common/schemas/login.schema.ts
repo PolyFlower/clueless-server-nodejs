@@ -2,7 +2,6 @@ import { IsNotEmpty, IsString, Matches, MinLength } from 'class-validator';
 
 export class LoginRequest {
   @IsNotEmpty()
-  @IsNotEmpty()
   @IsString()
   username: string;
 
