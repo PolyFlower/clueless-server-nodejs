@@ -6,6 +6,8 @@ import logTimeStamp from '@utils/index';
 
 const app = express();
 
+app.use(express.urlencoded({ extended: true }));
+
 // Mount routes
 app.use('/v1', loginRouter);
 app.use('/v1', registrationRouter);
