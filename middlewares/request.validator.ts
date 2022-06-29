@@ -1,7 +1,18 @@
 import { HttpStatus } from '@common/enums/http-codes.enum';
-import { plainToInstance } from 'class-transformer';
+import { Exclude, Expose, plainToInstance } from 'class-transformer';
 import { validate, ValidationError, ValidatorOptions } from 'class-validator';
 import { NextFunction, Request, Response } from 'express';
+
+@Exclude()
+class ErrorBody extends ValidationError {
+  @Expose()
+  property: string;
+
+  @Expose()
+  constraints: {
+    [type: string]: string;
+  };
+}
 
 export function requestValidator<T>(
   cls: T,
@@ -17,9 +28,11 @@ export function requestValidator<T>(
     validate(transformed, validatorOptions).then(
       (errors: ValidationError[]) => {
         if (errors.length > 0) {
-          return res
-            .status(HttpStatus.BadRequest)
-            .json({ errs: errors[0].constraints });
+          return res.status(HttpStatus.BadRequest).json({
+            errs: {
+              ...errors.map(error => plainToInstance(ErrorBody, error)),
+            },
+          });
         }
         next();
       },
