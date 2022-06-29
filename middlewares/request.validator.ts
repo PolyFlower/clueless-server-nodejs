@@ -1,5 +1,10 @@
 import { HttpStatus } from '@common/enums/http-codes.enum';
-import { Exclude, Expose, plainToInstance } from 'class-transformer';
+import {
+  ClassConstructor,
+  Exclude,
+  Expose,
+  plainToInstance,
+} from 'class-transformer';
 import { validate, ValidationError, ValidatorOptions } from 'class-validator';
 import { NextFunction, Request, Response } from 'express';
 
@@ -14,8 +19,12 @@ class ErrorBody extends ValidationError {
   };
 }
 
+type ReqBody = {
+  [type: string]: string;
+};
+
 export function requestValidator<T>(
-  cls: T,
+  cls: ClassConstructor<T>,
   validatorOptions?: ValidatorOptions,
 ) {
   return function validateClass(
@@ -23,8 +32,8 @@ export function requestValidator<T>(
     res: Response,
     next: NextFunction,
   ) {
-    const reqBody = req.body;
-    const transformed: any = plainToInstance(cls as any, reqBody);
+    const reqBody: ReqBody = req.body;
+    const transformed: any = plainToInstance(cls, reqBody);
     validate(transformed, validatorOptions).then(
       (errors: ValidationError[]) => {
         if (errors.length > 0) {
