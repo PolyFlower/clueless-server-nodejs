@@ -1,8 +1,9 @@
 import 'dotenv/config';
 import 'tsconfig-paths/register';
 import express from 'express';
-import { loginRouter, registrationRouter } from '@routes/index';
 import logTimeStamp from '@utils/index';
+import loginRouter from '@routes/login.router';
+import registrationRouter from '@routes/registration.router';
 
 const app = express();
 
