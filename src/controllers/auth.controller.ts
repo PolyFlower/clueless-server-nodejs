@@ -3,6 +3,7 @@ import { User } from '@entities/user.entity';
 import { hashing } from '@utils/hashing';
 import { NextFunction, Request, Response } from 'express';
 import { getRepository } from 'typeorm';
+import jwt from 'jsonwebtoken';
 
 class AuthController {
   async login(req: Request, res: Response, next: NextFunction) {
@@ -16,7 +17,15 @@ class AuthController {
       if (!match) {
         return next(new BadRequestException('Password is incorrect'));
       }
-      return res.send('Logged in');
+      const payload = { id: foundUser.id, username: foundUser.username };
+      const token = jwt.sign(payload, process.env['JWT_SECRET']!, {
+        expiresIn: process.env['JWT_EXPIRY'],
+      });
+      res.cookie('token', token, {
+        httpOnly: true,
+        maxAge: 10 * 60 * 1000,
+      });
+      return res.status(200).send('Logged in succesfully');
     });
   }
 
