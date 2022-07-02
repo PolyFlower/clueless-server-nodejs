@@ -5,8 +5,10 @@ import { Router } from 'express';
 
 const registrationRouter = Router();
 
-registrationRouter.use('/register', requestValidator(RegisterRequest));
-
-registrationRouter.post('/register', authController.register);
+registrationRouter.post(
+  '/register',
+  [requestValidator(RegisterRequest)],
+  authController.register,
+);
 
 export default registrationRouter;

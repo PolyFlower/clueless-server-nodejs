@@ -5,8 +5,10 @@ import { Router } from 'express';
 
 const loginRouter = Router();
 
-loginRouter.use('/login', requestValidator(LoginRequest));
-
-loginRouter.post('/login', authController.login);
+loginRouter.post(
+  '/login',
+  [requestValidator(LoginRequest)],
+  authController.login,
+);
 
 export default loginRouter;
