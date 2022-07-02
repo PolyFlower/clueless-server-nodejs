@@ -1,13 +1,26 @@
 {
   "extends": "@tsconfig/node16/tsconfig.json",
   "compilerOptions": {
-    "experimentalDecorators": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./src",
+    "removeComments": true,
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
     "strictPropertyInitialization": false,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "typeRoots": ["./node_modules/@types"],
+    "noFallthroughCasesInSwitch": true,
     "paths": {
       "@common/*": ["./common/*"],
       "@routes/*": ["./routes/*"],
       "@utils/*": ["./utils/*"],
-      "@middlewares/*": ["./middlewares/*"]
+      "@entities/*": ["./entities/*"],
+      "@middlewares/*": ["./middlewares/*"],
+      "@database/*": ["./database/*"],
+      "@controllers/*": ["./controllers/*"],
+      "@repositories/*": ["./repositories/*"]
     }
   }
 }
