@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import 'tsconfig-paths/register';
+import 'reflect-metadata';
 import express from 'express';
 import logTimeStamp from '@utils/index';
 import loginRouter from '@routes/login.router';
