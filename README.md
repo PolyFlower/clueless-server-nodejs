@@ -1,6 +1,6 @@
 ### Clueless Server
 
-Attempt to make something w/o NodeJS :P
+Attempt to make something w/o NestJS :P
 
 ### Setup:
 
